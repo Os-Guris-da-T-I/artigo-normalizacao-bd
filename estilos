@@ -1,0 +1,328 @@
+/* Artigo "Do dado repetido ao banco organizado": Harmonia quente/fria, suave, elegante e acessível. */
+
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@0,400..800;1,400..800&display=swap');
+
+:root{
+  color-scheme:dark;
+  /* Base equilibrada: Fundo azul-petróleo escuro e profundo (frio) com painéis em tom ardósia suave */
+  --fundo:#111d23; 
+  --fundo2:#16242c; 
+  --painel:#1e303a; 
+  --painel2:#273c47; 
+  --linha:#3c5663; 
+  --codigo:#0b1317;
+  
+  --branco:#ffffff; 
+  --texto:#edf4f7; /* Branco suave de alto contraste para leitura sem fadiga */
+  --suave:#b5c6cd;
+  
+  /* Acentos combinando calor (âmbar/dourado e coral suave) e frio (azul-petróleo/teal suave) */
+  --quente-principal:#e59b5d; /* Âmbar acolhedor e atrativo */
+  --frio-principal:#5bb5b0;  /* Teal/Verde-azulado suave e elegante */
+  --destaque-suave:#d1a0c8;   /* Lavanda suave para notas e detalhes */
+  
+  --serif:"Lora", Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --sans:"Plus Jakarta Sans", "Avenir Next", "Segoe UI", system-ui, sans-serif; 
+  --mono:ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:1rem}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+
+body{
+  margin:0;
+  font:18px/1.8 var(--serif);
+  color:var(--texto);
+  background:var(--fundo);
+}
+
+::selection{
+  background:var(--quente-principal);
+  color:#111d23;
+}
+
+a{
+  color:var(--frio-principal);
+  text-underline-offset:3px;
+  font-weight:600;
+}
+a:hover{
+  color:var(--quente-principal);
+  text-decoration-thickness:2px;
+}
+a:focus-visible, summary:focus-visible{
+  outline:3px solid var(--quente-principal);
+  outline-offset:3px;
+}
+
+strong{
+  color:#fff;
+  font-weight:700;
+}
+
+.pular{position:absolute;left:-9999px}
+.pular:focus{left:1rem;top:1rem;background:var(--quente-principal);color:#111d23;padding:.7rem;z-index:10;font-weight:bold}
+
+/* Topo: Gradiente sutil misturando o calor do âmbar com o frescor do teal */
+.topo{
+  color:#fff;
+  background-color:#0d1519;
+  background-image:radial-gradient(40rem 22rem at 90% 0%, rgba(229,155,93,.15), transparent 70%),
+    radial-gradient(38rem 24rem at 0% 100%, rgba(91,181,176,.12), transparent 70%);
+}
+
+.nav{
+  max-width:900px;
+  margin:auto;
+  padding:1rem 1.3rem;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  align-items:center;
+  font-family:var(--sans);
+}
+
+.marca{font-weight:800;color:#fff;text-decoration:none}
+.marca span{font-weight:400;color:var(--suave)}
+
+.links{display:flex;gap:.3rem 1.2rem;flex-wrap:wrap}
+.links a{color:var(--suave);text-decoration:none;font-size:.95rem;padding:.2rem 0;border-bottom:2px solid transparent;font-weight:400}
+.links a:hover{color:#fff;border-bottom-color:var(--quente-principal)}
+
+.hero{max-width:900px;margin:auto;padding:4rem 1.3rem 3.2rem}
+.hero h1{font:800 clamp(2.4rem,7vw,4.4rem)/1.06 var(--sans);letter-spacing:-.03em;max-width:16ch;margin:1rem 0 1.2rem;color:#fff}
+.subtitulo{font-size:1.2rem;max-width:36rem;color:var(--suave);margin:0}
+
+.autores{
+  display:flex;
+  gap:.4rem 1.5rem;
+  flex-wrap:wrap;
+  margin-top:2.5rem;
+  padding:1rem 1.2rem;
+  background:rgba(255,255,255,.05);
+  border: 1px solid var(--linha);
+  border-radius:14px;
+  font:.95rem/1.6 var(--sans);
+  color:var(--suave);
+}
+.autores strong{color:var(--quente-principal)}
+.autores span{color:#fff}
+
+/* Etiquetas em pílula equilibradas */
+.etiqueta{
+  display:inline-flex;
+  margin:0 0 .9rem;
+  padding:.3rem 1rem;
+  border-radius:999px;
+  font:700 .85rem var(--sans);
+  text-transform:lowercase;
+  color:#111d23;
+  background:var(--frio-principal);
+}
+
+main{max-width:900px;margin:auto;padding:1.5rem 1.3rem 4rem}
+.introducao{padding:1.5rem 0 2rem;font-size:1.08rem}
+
+.secao{
+  padding:2.4rem 1.6rem;
+  margin:1.6rem 0;
+  border-radius:22px;
+  background:var(--fundo2);
+  border: 1px solid rgba(255,255,255,.03);
+}
+.secao:nth-of-type(even){background:var(--painel)}
+
+.secao:nth-of-type(3n+2) .etiqueta{background:var(--quente-principal)}
+.secao:nth-of-type(3n) .etiqueta{background:var(--destaque-suave)}
+
+main p, main li{max-width:66ch}
+h2, h3{font-family:var(--sans);color:#fff}
+.secao h2{font-size:clamp(1.7rem,4.5vw,2.35rem);line-height:1.2;letter-spacing:-.02em;margin:.2rem 0 1rem;max-width:24ch}
+.secao h3{font-size:1.15rem;margin:1.6rem 0 .4rem}
+em{color:var(--suave)}
+
+/* Avisos e dicas com alto contraste e acessibilidade */
+.aviso, .dica, .nota{
+  padding:1rem 1.2rem;
+  font:.95rem/1.7 var(--sans);
+  max-width:66ch;
+  border-radius:14px;
+}
+.aviso, .dica{margin:1.2rem 0 1.5rem}
+
+.aviso{
+  background:rgba(229,155,93,.12);
+  border-left:4px solid var(--quente-principal);
+  color:var(--texto);
+}
+.dica{
+  background:rgba(91,181,176,.12);
+  border-left:4px solid var(--frio-principal);
+  color:var(--texto);
+}
+.nota{
+  color:var(--suave);
+  padding:0 0 0 1rem;
+  border-left:3px solid var(--destaque-suave);
+  background:rgba(209,160,200,.08);
+}
+p.dica{max-width:66ch}
+
+/* Tabelas */
+.tabela-wrap{overflow-x:auto;margin:1.4rem 0;border:1px solid var(--linha);border-radius:14px;background:var(--painel)}
+.secao:nth-of-type(even) .tabela-wrap{background:var(--fundo2)}
+table{width:100%;min-width:38rem;border-collapse:collapse;font:.88rem/1.5 var(--mono)}
+caption{caption-side:top;text-align:left;padding:.85rem 1rem;font:600 .92rem var(--sans);color:var(--frio-principal);border-bottom:1px solid var(--linha)}
+th, td{text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--linha)}
+th{background:var(--painel2);color:#fff;font-family:var(--sans);font-weight:700}
+tbody tr:hover td{background:rgba(255,255,255,.04)}
+td:first-child{color:var(--suave)}
+tr:last-child td{border-bottom:0}
+
+/* Cartões */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.6rem 0}
+.card{
+  --c:var(--frio-principal);
+  background:var(--painel2);
+  border-radius:16px;
+  border-top:5px solid var(--c);
+  padding:1.1rem 1.2rem;
+  border-right: 1px solid rgba(255,255,255,.04);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  border-left: 1px solid rgba(255,255,255,.04);
+}
+.card:nth-child(2){--c:var(--quente-principal)}
+.card:nth-child(3){--c:var(--destaque-suave)}
+.card h3{margin:.7rem 0 .4rem}
+.card p{font-size:.95rem;margin:0;color:var(--suave)}
+
+.numero{
+  display:inline-grid;
+  place-items:center;
+  width:2rem;
+  height:2rem;
+  border-radius:50%;
+  background:var(--c);
+  color:#111d23;
+  font:800 1rem var(--sans);
+}
+
+.trilha .card{transition:transform .25s,box-shadow .25s}
+.trilha .card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(0,0,0,.3)}
+.trilha .card h3 a{color:#fff;text-decoration:none}
+.trilha .card h3 a:hover{color:var(--c);text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.trilha .card{transition:none}.trilha .card:hover{transform:none}}
+
+/* Formas normais */
+.forma{display:grid;grid-template-columns:78px 1fr;gap:1.3rem;padding:1.4rem 0;border-bottom:1px dashed var(--linha)}
+.forma-num{display:grid;place-items:center;height:56px;background:var(--frio-principal);color:#111d23;font:800 1.3rem var(--mono);border-radius:14px}
+.forma:nth-of-type(2) .forma-num{background:var(--quente-principal)}
+.forma:nth-of-type(3) .forma-num{background:var(--destaque-suave)}
+.forma p{margin:.3rem 0}
+
+.figura{margin:2rem 0;background:var(--fundo);border-radius:16px;padding:1rem;border:1px solid var(--linha)}
+.figura img{display:block;width:100%;max-height:360px;object-fit:contain}
+.figura figcaption{font:.88rem var(--sans);color:var(--suave);margin-top:.7rem}
+
+.decisoes{padding-left:1.3rem}
+.decisoes li{margin:.7rem 0}
+.decisoes li::marker{color:var(--quente-principal)}
+
+details{
+  margin:1.4rem 0;
+  padding:.9rem 1.2rem;
+  background:rgba(255,255,255,.04);
+  border-left:4px solid var(--quente-principal);
+  border-radius:14px;
+  font:.95rem/1.7 var(--sans);
+  max-width:66ch;
+}
+summary{cursor:pointer;font-weight:700;color:var(--quente-principal)}
+details[open] summary{margin-bottom:.5rem}
+
+/* Código */
+code{
+  font-family:var(--mono);
+  font-size:.88em;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  padding:.15rem .4rem;
+  border-radius:6px;
+}
+pre{
+  overflow-x:auto;
+  margin:1.2rem 0;
+  padding:1.1rem 1.3rem;
+  background:var(--codigo);
+  color:#eaf2f5;
+  border-radius:14px;
+  border-left:5px solid var(--frio-principal);
+  border-top:1px solid var(--linha);
+  border-right:1px solid var(--linha);
+  border-bottom:1px solid var(--linha);
+  font:.88rem/1.65 var(--mono);
+  tab-size:4;
+}
+pre code{background:none;padding:0;font-size:inherit;color:inherit}
+
+/* Vídeos */
+.video{
+  display:grid;
+  grid-template-columns:3rem 1fr;
+  gap:1rem;
+  align-items:start;
+  margin:1.4rem 0;
+  padding:1.1rem 1.3rem;
+  background:var(--fundo);
+  border:1px solid var(--linha);
+  border-radius:16px;
+  font-family:var(--sans);
+  transition:box-shadow .25s;
+}
+.video:hover{box-shadow:0 0 0 2px var(--quente-principal)}
+.video .play{
+  display:grid;
+  place-items:center;
+  width:3rem;
+  height:3rem;
+  border-radius:50%;
+  background:var(--quente-principal);
+  color:#111d23;
+  font-size:1.1rem;
+  padding-left:.15rem;
+  font-weight:bold;
+}
+.video strong{display:block;font-size:1.02rem;line-height:1.35}
+.video p{margin:.35rem 0 0;font-size:.93rem;line-height:1.6;color:var(--suave)}
+.video .reserva{font-size:.88rem}
+.video a{font-weight:600}
+
+.referencias li{margin:.8rem 0}
+.revisao{font:.9rem var(--sans);color:var(--suave);border-top:1px solid var(--linha);padding-top:1rem;margin-top:2rem}
+
+footer{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+  padding:1.6rem max(calc((100% - 900px)/2),1.3rem);
+  background:#0d1519;
+  color:var(--suave);
+  font:.92rem var(--sans);
+  border-top:1px solid var(--linha);
+}
+footer p{margin:0}
+
+@media (max-width:700px){
+  body{font-size:17px}
+  .nav{flex-direction:column;align-items:flex-start}
+  .hero{padding-top:3rem}
+  .secao{padding:1.8rem 1rem;border-radius:18px}
+  .cards{grid-template-columns:1fr}
+  .forma{grid-template-columns:56px 1fr;gap:.8rem}
+  .forma-num{height:46px;font-size:1.05rem}
+  .video{grid-template-columns:2.4rem 1fr;gap:.7rem}
+  .video .play{width:2.4rem;height:2.4rem}
+  main{padding-left:1rem;padding-right:1rem}
+}
