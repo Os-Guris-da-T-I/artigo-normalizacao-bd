@@ -591,3 +591,44 @@ footer {
     gap: 0.5rem;
   }
 }
+/* --- ANIMAÇÃO DE ENTRADA AO ABRIR A PÁGINA --- */
+@keyframes fadeInEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplica a animação no cabeçalho e na hero section ao carregar */
+.topo {
+  animation: fadeInEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.hero {
+  animation: fadeInEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  opacity: 0; /* Começa invisível para a animação revelar */
+}
+
+/* Aplica a animação de entrada suave nas seções principais do artigo */
+main .secao {
+  animation: fadeInEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Atraso escalonado para as seções entrarem de forma elegante uma a uma */
+main .secao:nth-child(1) { animation-delay: 0.25s; }
+main .secao:nth-child(2) { animation-delay: 0.35s; }
+main .secao:nth-child(3) { animation-delay: 0.45s; }
+main .secao:nth-child(4) { animation-delay: 0.55s; }
+main .secao:nth-child(5) { animation-delay: 0.65s; }
+main .secao:nth-child(6) { animation-delay: 0.75s; }
+main .secao:nth-child(7) { animation-delay: 0.85s; }
+
+/* Efeito de transição suave em links e botões */
+a, button, .card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
