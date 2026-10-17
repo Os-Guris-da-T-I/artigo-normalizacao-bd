@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" width="100%" height="100%" style="background-color: #090d10; font-family: &#39;Plus Jakarta Sans&#39;, system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradiente de Fundo do Card 1 (Teal GennisCode) -->
+    <linearGradient id="grad-1fn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00dc82" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#152229" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Gradiente de Fundo do Card 2 (Ciano/Azul) -->
+    <linearGradient id="grad-2fn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#152229" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Gradiente de Fundo do Card 3 (Âmbar/Laranja) -->
+    <linearGradient id="grad-3fn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#152229" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Marcador de Seta entre os Cards -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <!-- ================= ETAPA 1: 1FN ================= -->
+  <g transform="translate(30, 30)">
+    <!-- Container Card 1FN -->
+    <rect x="0" y="0" width="280" height="360" rx="16" fill="url(#grad-1fn)" stroke="#00dc82" stroke-width="2" />
+    
+    <!-- Tag Pill -->
+    <rect x="20" y="24" width="70" height="28" rx="14" fill="#00dc82" />
+    <text x="55" y="43" fill="#090d10" font-size="13" font-weight="800" text-anchor="middle">1FN</text>
+    
+    <!-- Título do Card -->
+    <text x="20" y="85" fill="#f0f6f9" font-size="18" font-weight="700">Valores Atômicos</text>
+    <text x="20" y="108" fill="#9cb1bc" font-size="12" font-weight="400">Elimina vetores e listas numa célula</text>
+
+    <!-- Ilustração Visual da 1FN (Tabela Única com Chave) -->
+    <g transform="translate(20, 135)">
+      <rect x="0" y="0" width="240" height="125" rx="8" fill="#0f171c" stroke="#243844" />
+      <!-- Header da Tabela -->
+      <rect x="0" y="0" width="240" height="30" rx="8" fill="#152229" />
+      <text x="15" y="20" fill="#00dc82" font-size="11" font-weight="700">ID</text>
+      <text x="60" y="20" fill="#f0f6f9" font-size="11" font-weight="600">Pergunta</text>
+      <text x="160" y="20" fill="#f0f6f9" font-size="11" font-weight="600">Alternativa</text>
+      <!-- Linhas -->
+      <line x1="0" y1="30" x2="240" y2="30" stroke="#243844" stroke-width="1" />
+      <text x="15" y="52" fill="#627b87" font-size="11">1</text>
+      <text x="60" y="52" fill="#9cb1bc" font-size="11">Python...</text>
+      <text x="160" y="52" fill="#00dc82" font-size="11">A) Sim</text>
+      
+      <line x1="0" y1="62" x2="240" y2="62" stroke="#243844" stroke-width="1" />
+      <text x="15" y="84" fill="#627b87" font-size="11">1</text>
+      <text x="60" y="84" fill="#9cb1bc" font-size="11">Python...</text>
+      <text x="160" y="84" fill="#00dc82" font-size="11">B) Não</text>
+
+      <line x1="0" y1="94" x2="240" y2="94" stroke="#243844" stroke-width="1" />
+      <text x="15" y="112" fill="#627b87" font-size="11">2</text>
+      <text x="60" y="112" fill="#9cb1bc" font-size="11">HTML...</text>
+      <text x="160" y="112" fill="#00dc82" font-size="11">A) Certo</text>
+    </g>
+
+    <!-- Footer do Card -->
+    <rect x="20" y="285" width="240" height="50" rx="10" fill="#0f171c" stroke="#243844" />
+    <text x="35" y="315" fill="#00dc82" font-size="12" font-weight="600">✓ Dados indivisíveis por célula</text>
+  </g>
+
+  <!-- SETA 1 -> 2 -->
+  <path d="M 325 210 L 360 210" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- ================= ETAPA 2: 2FN ================= -->
+  <g transform="translate(370, 30)">
+    <!-- Container Card 2FN -->
+    <rect x="0" y="0" width="280" height="360" rx="16" fill="url(#grad-2fn)" stroke="#38bdf8" stroke-width="2" />
+    
+    <!-- Tag Pill -->
+    <rect x="20" y="24" width="70" height="28" rx="14" fill="#38bdf8" />
+    <text x="55" y="43" fill="#090d10" font-size="13" font-weight="800" text-anchor="middle">2FN</text>
+    
+    <!-- Título do Card -->
+    <text x="20" y="85" fill="#f0f6f9" font-size="18" font-weight="700">Dependência Total</text>
+    <text x="20" y="108" fill="#9cb1bc" font-size="12" font-weight="400">Sem dependência de fração da chave</text>
+
+    <!-- Ilustração Visual da 2FN (Chave Composta -> Separada) -->
+    <g transform="translate(20, 135)">
+      <!-- Tabela Principal -->
+      <rect x="0" y="0" width="240" height="55" rx="8" fill="#0f171c" stroke="#243844" />
+      <rect x="0" y="0" width="240" height="24" rx="8" fill="#152229" />
+      <text x="15" y="16" fill="#38bdf8" font-size="11" font-weight="700">PK: (ID_Perg, ID_Alt)</text>
+      <text x="15" y="42" fill="#9cb1bc" font-size="11">Resposta Correta (BOOLEAN)</text>
+      
+      <!-- Linha de conexão -->
+      <path d="M 120 55 L 120 70" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" />
+
+      <!-- Tabela Decomposta -->
+      <rect x="0" y="70" width="240" height="55" rx="8" fill="#0f171c" stroke="#243844" />
+      <rect x="0" y="70" width="240" height="24" rx="8" fill="#152229" />
+      <text x="15" y="86" fill="#38bdf8" font-size="11" font-weight="700">PK: ID_Pergunta</text>
+      <text x="15" y="112" fill="#9cb1bc" font-size="11">Enunciado da Pergunta</text>
+    </g>
+
+    <!-- Footer do Card -->
+    <rect x="20" y="285" width="240" height="50" rx="10" fill="#0f171c" stroke="#243844" />
+    <text x="35" y="315" fill="#38bdf8" font-size="12" font-weight="600">✓ Atributos dependem da chave toda</text>
+  </g>
+
+  <!-- SETA 2 -> 3 -->
+  <path d="M 665 210 L 700 210" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- ================= ETAPA 3: 3FN ================= -->
+  <g transform="translate(710, 30)">
+    <!-- Container Card 3FN -->
+    <rect x="0" y="0" width="260" height="360" rx="16" fill="url(#grad-3fn)" stroke="#f59e0b" stroke-width="2" />
+    
+    <!-- Tag Pill -->
+    <rect x="20" y="24" width="70" height="28" rx="14" fill="#f59e0b" />
+    <text x="55" y="43" fill="#090d10" font-size="13" font-weight="800" text-anchor="middle">3FN</text>
+    
+    <!-- Título do Card -->
+    <text x="20" y="85" fill="#f0f6f9" font-size="18" font-weight="700">Isolamento Total</text>
+    <text x="20" y="108" fill="#9cb1bc" font-size="12" font-weight="400">Elimina dependências transitivas</text>
+
+    <!-- Ilustração Visual da 3FN (Múltiplas Tabelas Relacionadas por FK) -->
+    <g transform="translate(20, 135)">
+      <!-- Tabela Pergunta -->
+      <rect x="0" y="0" width="220" height="36" rx="6" fill="#0f171c" stroke="#243844" />
+      <text x="10" y="22" fill="#f0f6f9" font-size="10" font-weight="700">perguntas</text>
+      <text x="120" y="22" fill="#f59e0b" font-size="10">FK: id_fonte</text>
+
+      <!-- Seta FK 1 -->
+      <path d="M 110 36 L 110 46" stroke="#f59e0b" stroke-width="1.5" />
+
+      <!-- Tabela Fontes -->
+      <rect x="0" y="46" width="220" height="36" rx="6" fill="#0f171c" stroke="#243844" />
+      <text x="10" y="68" fill="#f59e0b" font-size="10" font-weight="700">fontes</text>
+      <text x="100" y="68" fill="#9cb1bc" font-size="10">(id_fonte, nome, url)</text>
+
+      <!-- Seta FK 2 -->
+      <path d="M 110 82 L 110 92" stroke="#f59e0b" stroke-width="1.5" />
+
+      <!-- Tabela Categorias -->
+      <rect x="0" y="92" width="220" height="36" rx="6" fill="#0f171c" stroke="#243844" />
+      <text x="10" y="114" fill="#f59e0b" font-size="10" font-weight="700">categorias</text>
+      <text x="100" y="114" fill="#9cb1bc" font-size="10">(id_cat, nome)</text>
+    </g>
+
+    <!-- Footer do Card -->
+    <rect x="20" y="285" width="220" height="50" rx="10" fill="#0f171c" stroke="#243844" />
+    <text x="30" y="315" fill="#f59e0b" font-size="12" font-weight="600">✓ Sem atributos não-chave encadeados</text>
+  </g>
+</svg>
