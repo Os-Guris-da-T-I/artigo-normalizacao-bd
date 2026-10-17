@@ -5,170 +5,321 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Artigo sobre normalização de banco de dados, da 1FN à 5FN e a desnormalização, com exemplos SQL fictícios em PostgreSQL e vídeos para aprofundar.">
   <title>Do dado repetido ao banco organizado | Tech Trivia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Cabeçalho em estilo GennisCode -->
   <header class="topo">
     <nav class="nav" aria-label="Navegação principal">
-      <a class="marca" href="#inicio">Tech Trivia <span>· Banco de dados</span></a>
+      <a class="marca" href="#inicio">
+        <span class="logo-kanji">玄</span>
+        <span class="marca-texto">Tech Trivia <span>· Banco de Dados</span></span>
+      </a>
       <div class="links">
         <a href="#problema">O problema</a>
-        <a href="#formas">1FN, 2FN e 3FN</a>
-        <a href="#avancadas">BCNF, 4FN e 5FN</a>
+        <a href="#formas">1FN a 3FN</a>
+        <a href="#avancadas">BCNF a 5FN</a>
         <a href="#desnormalizacao">Desnormalização</a>
         <a href="#sql">SQL</a>
         <a href="#referencias">Referências</a>
       </div>
     </nav>
+
     <section class="hero" id="inicio">
-      <p class="etiqueta">ARTIGO TÉCNICO · NÍVEL INICIANTE</p>
-      <h1>Do dado repetido ao banco organizado</h1>
-      <p class="subtitulo">Da 1FN à 5FN, e até a hora de quebrar as regras de propósito: um passeio com exemplos de quiz, SQL e vídeos para você ir mais longe.</p>
-      <div class="autores">
-        <strong>Autores:</strong> João Victor Guimarães Gomes, Matheus Augusto Antunes Pentogennis, Gustavo Gabriel Naves Ferreira, Lucas Siqueira Teles, Lucas da Graça Leandro e Gabriel Gonçalves Lima
-        <span>Revisado em: 16/10/2026</span>
+      <div class="badge-tag">
+        <span class="kanji-pill">玄</span>
+        <span>ARTIGO TÉCNICO · BANCO DE DADOS I</span>
+      </div>
+      <h1>Do dado repetido ao<br><span class="destaque-gradiente">banco organizado.</span></h1>
+      <p class="subtitulo">Da 1FN à 5FN e o momento certo de desnormalizar: um guia prático com quiz, scripts PostgreSQL e vídeos complementares.</p>
+      
+      <div class="autores-card">
+        <div class="autores-header">
+          <span class="dot-status"></span>
+          <strong>Autores (Grupo 9 · 2º Semestre):</strong>
+        </div>
+        <p class="autores-lista">João Victor Guimarães Gomes, Matheus Augusto Antunes Pentogennis, Gustavo Gabriel Naves Ferreira, Lucas Siqueira Teles, Lucas da Graça Leandro e Gabriel Gonçalves Lima</p>
+        <span class="revisao-data">Última revisão acadêmica: 16/10/2026</span>
       </div>
     </section>
   </header>
 
   <main id="conteudo">
+    <!-- Introdução -->
     <section class="introducao">
-      <div class="aviso"><strong>Antes de começar:</strong> os nomes, produtos, valores e registros usados nos exemplos são totalmente fictícios. Não representam pessoas, clientes ou empresas reais.</div>
-      <p>Imagine que um sistema de quiz guarde as perguntas, a categoria, o nome de quem publicou e o endereço da fonte tudo em uma única tabela. No começo parece prático, mas, quando o sistema cresce, fica fácil repetir dados e cometer erros. A normalização é uma forma de organizar essas informações em tabelas que se relacionam de maneira mais clara.</p>
-      <p>Vamos por uma trilha em três partes. Em cada uma você encontra um exemplo, um trecho de SQL e vídeos para quem quiser ir além do texto.</p>
+      <div class="aviso-box">
+        <div class="aviso-ic">⚠️</div>
+        <div>
+          <strong>Nota de Privacidade e Ética:</strong> Os dados, tabelas e cenários apresentados são 100% fictícios e elaborados exclusivamente para fins acadêmicos.
+        </div>
+      </div>
+      <p class="lead">Imagine guardar as perguntas de um quiz, as categorias, os nomes de quem publicou e as URLs das fontes tudo em uma única tabela. No início parece prático, mas com o crescimento da aplicação a duplicação causa erros graves de consistência. A normalização é a técnica essencial para estruturar dados em tabelas relacionais organizadas.</p>
+      <p>Organizamos esta investigação acadêmica em 3 etapas com conceitos, exemplos interativos e trechos de SQL:</p>
+      
       <div class="cards trilha">
-        <article class="card"><span class="numero">1</span><h3><a href="#formas">Separar o que está misturado</a></h3><p>1FN, 2FN e 3FN. Por que mudar o nome de uma fonte não deveria exigir mexer em dez linhas?</p></article>
-        <article class="card"><span class="numero">2</span><h3><a href="#avancadas">Quando a 3FN não basta</a></h3><p>BCNF, 4FN e 5FN. Existe redundância que sobrevive à 3FN? Existe, e dá para vê-la.</p></article>
-        <article class="card"><span class="numero">3</span><h3><a href="#desnormalizacao">Quebrar a regra de propósito</a></h3><p>Desnormalização. Quando repetir dado é uma decisão boa, e o que você paga por ela.</p></article>
+        <article class="card">
+          <div class="card-step">01</div>
+          <h3><a href="#formas">Dividir o misturado</a></h3>
+          <p>1FN, 2FN e 3FN: Como organizar dados e evitar atualizar dezenas de linhas por uma única alteração.</p>
+        </article>
+        <article class="card">
+          <div class="card-step">02</div>
+          <h3><a href="#avancadas">Além da 3FN</a></h3>
+          <p>BCNF, 4FN e 5FN: Descubra e elimine as redundâncias complexas que sobrevivem às formas tradicionais.</p>
+        </article>
+        <article class="card">
+          <div class="card-step">03</div>
+          <h3><a href="#desnormalizacao">Quebrar regras com foco</a></h3>
+          <p>Desnormalização: Quando vale a pena duplicar dados de propósito para otimizar a velocidade de leitura.</p>
+        </article>
       </div>
     </section>
 
+    <!-- 01 · O PROBLEMA -->
     <section id="problema" class="secao">
-      <p class="etiqueta">01 · O PROBLEMA</p>
+      <div class="badge-tag"><span class="kanji-pill">01</span><span>O PROBLEMA</span></div>
       <h2>Quando tudo fica em uma tabela só</h2>
-      <p>Veja uma tabela desnormalizada de perguntas. Cada linha é uma pergunta, mas os dados da categoria e da fonte se repetem.</p>
+      <p>Análise de um cenário com tabela única desnormalizada. Os dados da categoria e do publicador/fonte se repetem linha a linha:</p>
+      
       <div class="tabela-wrap">
         <table>
-          <caption>Exemplo fictício de tabela antes da normalização</caption>
-          <thead><tr><th>ID</th><th>Pergunta</th><th>Categoria</th><th>Publicador</th><th>URL fictícia</th></tr></thead>
+          <caption>Tabela fictícia desnormalizada antes da aplicação do processo</caption>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pergunta</th>
+              <th>Categoria</th>
+              <th>Publicador</th>
+              <th>URL Fictícia</th>
+            </tr>
+          </thead>
           <tbody>
-            <tr><td>1</td><td>Python é uma linguagem?</td><td>Programação</td><td>Portal Exemplo</td><td>https://exemplo.invalid/python</td></tr>
-            <tr><td>2</td><td>HTML estrutura páginas?</td><td>Desenvolvimento Web</td><td>Portal Exemplo</td><td>https://exemplo.invalid/html</td></tr>
-            <tr><td>3</td><td>SQL consulta dados?</td><td>Banco de Dados</td><td>Fonte Fictícia</td><td>https://exemplo.invalid/sql</td></tr>
+            <tr>
+              <td>1</td>
+              <td>Python é uma linguagem?</td>
+              <td>Programação</td>
+              <td>Portal Exemplo</td>
+              <td>https://exemplo.invalid/python</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>HTML estrutura páginas?</td>
+              <td>Desenvolvimento Web</td>
+              <td>Portal Exemplo</td>
+              <td>https://exemplo.invalid/html</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>SQL consulta dados?</td>
+              <td>Banco de Dados</td>
+              <td>Fonte Fictícia</td>
+              <td>https://exemplo.invalid/sql</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <p>O problema não é ter poucas linhas. É que os dados da fonte se repetem em cada pergunta que a usa. Se o nome da fonte mudar, será preciso atualizar várias linhas.</p>
+
+      <p>Em volumes maiores de dados, essa repetição causa três anomalias clássicas estudadas em banco de dados:</p>
+
       <div class="cards">
-        <article class="card"><span class="numero">A</span><h3>Anomalia de atualização</h3><p>O nome de uma fonte é alterado em uma linha, mas esquecido em outra. O banco passa a ter versões diferentes da mesma informação.</p></article>
-        <article class="card"><span class="numero">B</span><h3>Anomalia de inserção</h3><p>Não dá para cadastrar uma fonte antes de existir uma pergunta que a use, se tudo estiver preso na mesma tabela.</p></article>
-        <article class="card"><span class="numero">C</span><h3>Anomalia de exclusão</h3><p>Ao apagar a última pergunta de uma fonte, podemos perder também os dados dessa fonte.</p></article>
+        <article class="card feature">
+          <div class="card-badge">A</div>
+          <h3>Anomalia de Atualização</h3>
+          <p>Alterar o nome do publicador em uma linha e esquecer em outra deixa o banco inconsistente.</p>
+        </article>
+        <article class="card feature">
+          <div class="card-badge">B</div>
+          <h3>Anomalia de Inserção</h3>
+          <p>Impossível cadastrar uma nova fonte sem associá-la imediatamente a uma pergunta válida.</p>
+        </article>
+        <article class="card feature">
+          <div class="card-badge">C</div>
+          <h3>Anomalia de Exclusão</h3>
+          <p>Apagar a única pergunta de uma fonte remove involuntariamente os dados cadastrais da fonte.</p>
+        </article>
       </div>
-      <p class="dica"><strong>Pare e pense:</strong> na tabela acima, se "Portal Exemplo" virasse "Portal Exemplo Brasil", quantas linhas você teria de alterar? E se fossem 10 mil perguntas?</p>
+
+      <div class="box-dica">
+        <strong>Reflexão prática:</strong> Se a fonte "Portal Exemplo" alterasse sua marca, quantas linhas precisariam ser atualizadas no banco de um sistema real com 50.000 perguntas?
+      </div>
     </section>
 
+    <!-- 02 · FORMAS NORMAIS -->
     <section id="formas" class="secao">
-      <p class="etiqueta">02 · PARTE 1 · 1FN, 2FN E 3FN</p>
-      <h2>Separando o que está misturado</h2>
-      <div class="forma">
-        <div class="forma-num">1FN</div><div><h3>Primeira Forma Normal: valores atômicos</h3><p>Cada campo guarda um único valor, e não uma lista dentro da mesma célula. Por exemplo, não guardar <code>"Certo; Errado"</code> no campo de alternativas. Cada alternativa deve ter seu próprio registro relacionado à pergunta.</p></div>
+      <div class="badge-tag"><span class="kanji-pill">02</span><span>PARTE 1 · 1FN, 2FN E 3FN</span></div>
+      <h2>Separando as responsabilidades</h2>
+
+      <div class="forma-box">
+        <div class="forma-tag">1FN</div>
+        <div>
+          <h3>Primeira Forma Normal: Atomicidade de Valores</h3>
+          <p>Cada célula deve conter um valor único e indivisível. Não se deve armazenar conjuntos ou vetores na mesma célula (ex: <code>"Certo; Errado"</code> em um único campo). As alternativas foram movidas para uma tabela própria.</p>
+        </div>
       </div>
-      <div class="forma">
-        <div class="forma-num">2FN</div><div><h3>Segunda Forma Normal: sem dependência parcial</h3><p>A tabela está na 1FN e cada atributo fora da chave depende da chave inteira, não só de um pedaço dela. Isso importa quando a chave primária é composta por duas ou mais colunas.</p><p class="nota">Neste exemplo, as tabelas principais usam identificadores simples. Por isso não existe dependência parcial nelas; ainda assim, vale conhecer a regra.</p></div>
+
+      <div class="forma-box">
+        <div class="forma-tag">2FN</div>
+        <div>
+          <h3>Segunda Forma Normal: Dependência Total da Chave</h3>
+          <p>A tabela deve estar na 1FN e todos os atributos não-chave devem depender da totalidade da chave primária. Aplica-se a chaves compostas para evitar que colunas dependam de apenas parte da chave.</p>
+        </div>
       </div>
-      <div class="forma">
-        <div class="forma-num">3FN</div><div><h3>Terceira Forma Normal: sem dependência transitiva</h3><p>A tabela está na 2FN e atributos fora da chave não determinam outros atributos que deveriam morar em outra tabela. O identificador da fonte determina o nome e a URL dela; esses dados ficam em <code>fontes</code>, e a pergunta guarda só a referência.</p></div>
+
+      <div class="forma-box">
+        <div class="forma-tag">3FN</div>
+        <div>
+          <h3>Terceira Forma Normal: Eliminação de Dependências Transitivas</h3>
+          <p>A tabela deve estar na 2FN e nenhum atributo não-chave pode depender de outro atributo não-chave. Isolamos as categorias e as fontes em tabelas próprias (`categorias` e `fontes`), mantendo na pergunta apenas a chave estrangeira.</p>
+        </div>
       </div>
-      <figure class="figura">
-        <img src="imagens/normalizacao.svg" alt="Fluxo ilustrado: valores atômicos na 1FN, dependência da chave inteira na 2FN e separação de informações relacionadas na 3FN.">
-        <figcaption>Figura 1 — Resumo visual das etapas de normalização. Ilustração original criada para este trabalho.</figcaption>
+
+      <figure class="figura-box">
+        <img src="imagens/normalizacao.svg" alt="Diagrama de evolução do banco de dados da 1FN à 3FN">
+        <figcaption>Figura 1 — Fluxo conceitual do processo de normalização (Elaboração própria do grupo).</figcaption>
       </figure>
-      <aside class="video"><span class="play" aria-hidden="true">▶</span><div>
-        <strong>Vídeo: Normalização de Dados em Bancos de Dados (1FN, 2FN, 3FN)</strong>
-        <p>O que observar: como o professor passa da tabela com redundância para as três formas normais, usando exemplos de relações.</p>
-        <p class="reserva"><a href="https://www.youtube.com/watch?v=TOFZQ5wm1UI" target="_blank" rel="noopener">Assistir no YouTube</a> · <a href="https://www.youtube.com/results?search_query=normaliza%C3%A7%C3%A3o+1FN+2FN+3FN+banco+de+dados" target="_blank" rel="noopener">link de reserva: buscar no YouTube</a></p>
-      </div></aside>
-      <aside class="video"><span class="play" aria-hidden="true">▶</span><div>
-        <strong>Quer ver uma forma de cada vez? Três vídeos curtos</strong>
-        <p>O que observar: em cada um, qual coluna o autor move para uma tabela nova e por quê.</p>
-        <p class="reserva"><a href="https://www.youtube.com/watch?v=3kJKJNKiaD4" target="_blank" rel="noopener">1FN</a> · <a href="https://www.youtube.com/watch?v=AwyKH1GeDuY" target="_blank" rel="noopener">2FN</a> · <a href="https://www.youtube.com/watch?v=EZvrGEpyNbs" target="_blank" rel="noopener">3FN</a> · <a href="https://www.youtube.com/results?search_query=segunda+forma+normal+2FN" target="_blank" rel="noopener">link de reserva: buscar no YouTube</a></p>
-      </div></aside>
+
+      <div class="video-card">
+        <div class="video-icon">▶</div>
+        <div>
+          <strong>Vídeo Recomendado: Normalização de Dados (1FN, 2FN, 3FN)</strong>
+          <p>Acompanhe a transição do modelo desnormalizado para o modelo relacional de forma didática.</p>
+          <div class="video-links">
+            <a href="https://www.youtube.com/watch?v=TOFZQ5wm1UI" target="_blank" rel="noopener">Assistir no YouTube</a>
+            <span>·</span>
+            <a href="https://www.youtube.com/results?search_query=normaliza%C3%A7%C3%A3o+1FN+2FN+3FN+banco+de+dados" target="_blank" rel="noopener">Link de Reserva</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-icon">▶</div>
+        <div>
+          <strong>Série Curta: Uma Forma Normal por Vídeo</strong>
+          <p>Aprofundamento rápido focado no isolamento de colunas e identificação de chaves.</p>
+          <div class="video-links">
+            <a href="https://www.youtube.com/watch?v=3kJKJNKiaD4" target="_blank" rel="noopener">1FN</a>
+            <a href="https://www.youtube.com/watch?v=AwyKH1GeDuY" target="_blank" rel="noopener">2FN</a>
+            <a href="https://www.youtube.com/watch?v=EZvrGEpyNbs" target="_blank" rel="noopener">3FN</a>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 03 · BCNF, 4FN E 5FN -->
     <section id="avancadas" class="secao">
-      <p class="etiqueta">03 · PARTE 2 · BCNF, 4FN E 5FN</p>
-      <h2>Quando a 3FN ainda deixa redundância</h2>
-      <p>A 3FN resolve a maioria dos casos, mas ainda sobra redundância em dois tipos de situação: quando um atributo que não é chave determina outro (BCNF) e quando existem listas independentes na mesma tabela (4FN e 5FN).</p>
-      <h3>BCNF: todo determinante precisa ser chave</h3>
-      <p>Na <strong>forma normal de Boyce-Codd</strong>, sempre que <code>A → B</code>, A tem de ser uma chave. Nosso exemplo: cada moderador cuida de uma única categoria (<code>moderador → categoria</code>), mas o moderador não é chave da tabela abaixo.</p>
-      <div class="tabela-wrap"><table>
-        <caption>Rodadas do quiz. Chaves candidatas: (jogador, categoria) e (jogador, moderador)</caption>
-        <thead><tr><th>Jogador</th><th>Categoria</th><th>Moderador</th></tr></thead>
-        <tbody><tr><td>Ana</td><td>Web</td><td>Marcos</td></tr><tr><td>Bia</td><td>Web</td><td>Marcos</td></tr><tr><td>Ana</td><td>Banco de Dados</td><td>Sílvia</td></tr></tbody>
-      </table></div>
-      <p>Repare que "Marcos cuida de Web" aparece duas vezes. A tabela está na 3FN (categoria faz parte de uma chave candidata), mas viola a BCNF. A solução é separar: uma tabela <code>moderador</code> (moderador, categoria) e uma tabela <code>rodada</code> (jogador, moderador).</p>
-      <p class="nota">Limite honesto: depois da decomposição, o banco deixa de garantir sozinho que (jogador, categoria) determine um único moderador. Nem sempre dá para atingir a BCNF preservando todas as dependências.</p>
-      <h3>4FN: fatos independentes, tabelas independentes</h3>
-      <p>Uma <strong>dependência multivalorada</strong> (<code>A ↠ B</code>) aparece quando A tem um conjunto de valores de B, independente das outras colunas. Se a pergunta fact-001 tem as tags <em>http</em> e <em>web</em> e está traduzida em <em>pt</em> e <em>en</em>, uma tabela única precisaria de 4 linhas, uma para cada combinação. Na <strong>4FN</strong> separamos em <code>pergunta_tag</code> (2 linhas) e <code>pergunta_idioma</code> (2 linhas). Com 5 tags e 3 idiomas, seriam 15 linhas contra 8.</p>
-      <h3>5FN: quando só o JOIN reconstrói a tabela</h3>
-      <p>Uma <strong>dependência de junção</strong> existe quando uma tabela pode ser quebrada em três ou mais partes e reconstruída sem perda apenas juntando todas elas. É raro e só aparece quando uma regra do negócio combina três coisas ao mesmo tempo. Na prática, a maioria dos projetos para na 3FN ou na BCNF, olhando a 4FN quando há listas independentes.</p>
-      <details><summary>Aprofundamento: definições formais</summary>
-      <p><strong>BCNF:</strong> para toda dependência funcional não trivial X → Y, X é superchave. <strong>4FN:</strong> está na BCNF e, para toda dependência multivalorada não trivial X ↠ Y, X é superchave (Fagin, 1977). <strong>5FN:</strong> está na 4FN e toda dependência de junção é implicada pelas chaves candidatas. Uma decomposição deve ser sem perdas (o JOIN devolve exatamente a tabela original).</p></details>
-      <p class="dica"><strong>Pare e pense:</strong> se um moderador passasse a cuidar de duas categorias, a dependência moderador → categoria continuaria valendo? O que isso diz sobre regras de negócio e normalização?</p>
-      <aside class="video"><span class="play" aria-hidden="true">▶</span><div>
-        <strong>Vídeo: Normalização, Parte 2 (FNBC, formas normais 4 e 5)</strong>
-        <p>O que observar: como o vídeo define dependência multivalorada e dependência de junção, e o que muda da 3FN para a BCNF.</p>
-        <p class="reserva"><a href="https://www.youtube.com/watch?v=mLcSeIEtMLM" target="_blank" rel="noopener">Assistir no YouTube</a> · <a href="https://www.youtube.com/results?search_query=forma+normal+boyce+codd+4FN+5FN" target="_blank" rel="noopener">link de reserva: buscar no YouTube</a></p>
-      </div></aside>
+      <div class="badge-tag"><span class="kanji-pill">03</span><span>PARTE 2 · BCNF, 4FN E 5FN</span></div>
+      <h2>Quando a 3FN ainda mantém redundâncias</h2>
+      <p>Casos especiais onde a 3FN não elimina totalmente a duplicação: dependências funcionais de não-chaves e dependências multivaloradas.</p>
+
+      <h3>BCNF: Forma Normal de Boyce-Codd</h3>
+      <p>Exige que todo determinante em uma dependência funcional seja uma chave candidata. Exemplo: Se um moderador gerencia apenas uma categoria (<code>moderador → categoria</code>), mas o moderador não é a chave da tabela, cria-se redundância:</p>
+
+      <div class="tabela-wrap">
+        <table>
+          <caption>Exemplo de violação da BCNF em rodadas do quiz</caption>
+          <thead>
+            <tr><th>Jogador</th><th>Categoria</th><th>Moderador</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Ana</td><td>Web</td><td>Marcos</td></tr>
+            <tr><td>Bia</td><td>Web</td><td>Marcos</td></tr>
+            <tr><td>Ana</td><td>Banco de Dados</td><td>Sílvia</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>A solução BCNF decompõe em duas tabelas: <code>moderador(moderador, categoria)</code> e <code>rodada(jogador, moderador)</code>.</p>
+
+      <h3>4FN: Dependências Multivaloradas</h3>
+      <p>Surgem quando um atributo determina um conjunto de valores independentes de outras colunas. Se uma pergunta tem 2 tags e 2 idiomas, a tabela desnormalizada exigiria 4 linhas (combinação cartesiana). Na 4FN, separamos em <code>pergunta_tag</code> e <code>pergunta_idioma</code>.</p>
+
+      <h3>5FN: Dependência de Junção</h3>
+      <p>Indica que uma tabela só pode ser reconstruída sem perdas juntando três ou mais tabelas decompostas. É um cenário avançado focado em regras de negócio complexas.</p>
+
+      <details class="details-box">
+        <summary>Formalizações Teóricas (Fagin, Codd)</summary>
+        <p><strong>BCNF:</strong> Para toda dependência não-trivial X → Y, X é superchave.<br>
+        <strong>4FN:</strong> Para toda dependência multivalorada não-trivial X ↠ Y, X é superchave.<br>
+        <strong>5FN:</strong> Toda dependência de junção é implicada pelas chaves candidatas do modelo.</p>
+      </details>
+
+      <div class="video-card">
+        <div class="video-icon">▶</div>
+        <div>
+          <strong>Vídeo Complementar: Boyce-Codd, 4FN e 5FN</strong>
+          <p>Entenda visualmente as dependências multivaloradas e de junção.</p>
+          <div class="video-links">
+            <a href="https://www.youtube.com/watch?v=mLcSeIEtMLM" target="_blank" rel="noopener">Assistir no YouTube</a>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 04 · DESNORMALIZAÇÃO -->
     <section id="desnormalizacao" class="secao">
-      <p class="etiqueta">04 · PARTE 3 · DESNORMALIZAÇÃO</p>
-      <h2>Quando repetir dados vale a pena</h2>
-      <p>Normalizar não é sempre o objetivo final. Cada tabela nova pede um <code>JOIN</code>, e em relatórios com milhões de linhas isso custa tempo. A <strong>desnormalização</strong> é repetir dados de propósito, de forma controlada, para deixar certas leituras mais rápidas.</p>
-      <div class="tabela-wrap"><table>
-        <caption>Dois jeitos de usar o banco</caption>
-        <thead><tr><th>Característica</th><th>Transacional (OLTP)</th><th>Analítico (OLAP)</th></tr></thead>
-        <tbody>
-          <tr><td>Uso típico</td><td>Responder perguntas e gravar respostas do quiz</td><td>Relatórios e painéis sobre o histórico</td></tr>
-          <tr><td>Operação mais comum</td><td>Muitas escritas pequenas</td><td>Poucas leituras enormes</td></tr>
-          <tr><td>Modelo</td><td>Normalizado (3FN)</td><td>Esquema estrela, com dados repetidos</td></tr>
-        </tbody>
-      </table></div>
-      <p>Um caminho seguro é manter as tabelas normalizadas e criar uma <strong>visão materializada</strong>, que guarda o resultado pronto de uma consulta. Aqui, um resumo de perguntas por categoria:</p>
+      <div class="badge-tag"><span class="kanji-pill">04</span><span>PARTE 3 · DESNORMALIZAÇÃO</span></div>
+      <h2>Otimização para Leitura e Performance</h2>
+      <p>A normalização foca na integridade do banco (OLTP). Contudo, sistemas analíticos e relatórios com milhões de dados exigem consultas mais rápidas. A desnormalização é a duplicação planejada e consciente de dados para evitar múltiplos <code>JOINs</code> pesados.</p>
+
+      <div class="tabela-wrap">
+        <table>
+          <caption>Comparativo de Abordagens de Modelagem</caption>
+          <thead>
+            <tr><th>Parâmetro</th><th>Sistemas OLTP (Transacional)</th><th>Sistemas OLAP (Analítico)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Objetivo</td><td>Gravação e edições rápidas sem erros</td><td>Consultas volumosas e relatórios</td></tr>
+            <tr><td>Modelagem</td><td>Normalizado (3FN / BCNF)</td><td>Desnormalizado (Esquema Estrela)</td></tr>
+            <tr><td>Custo Principal</td><td>Múltiplos JOINs em consultas</td><td>Consumo de armazenamento e sync</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Uma alternativa elegante no PostgreSQL é o uso de <strong>Visões Materializadas</strong> (Materialized Views):</p>
+
       <pre><code>CREATE MATERIALIZED VIEW resumo_categoria AS
 SELECT c.nome AS categoria, COUNT(p.id_pergunta) AS total_perguntas
 FROM categorias c
 LEFT JOIN perguntas p ON p.id_categoria = c.id_categoria
 GROUP BY c.id_categoria, c.nome;
 
--- O resumo não se atualiza sozinho: depois de mudar os dados, é preciso renovar.
+-- Atualização sob demanda da visualização
 REFRESH MATERIALIZED VIEW resumo_categoria;</code></pre>
-      <p><strong>Cuidados:</strong> o dado repetido pode ficar desatualizado (por isso o <code>REFRESH</code>), as escritas ficam mais caras e o esquema mais difícil de manter. Antes de desnormalizar, meça: compare a consulta com <code>EXPLAIN ANALYZE</code> nas duas versões e use índices primeiro.</p>
-      <p class="dica"><strong>Pare e pense:</strong> um painel que mostra o ranking do quiz precisa estar atualizado a cada segundo ou a cada hora? A resposta decide se compensa desnormalizar.</p>
-      <aside class="video"><span class="play" aria-hidden="true">▶</span><div>
-        <strong>Vídeo: Desnormalização de Dados, Parte 1</strong>
-        <p>O que observar: o exemplo é do Firebase Realtime Database (NoSQL), mas mostra a ideia central de duplicar dados para simplificar a leitura. Pense no que mudaria em um banco relacional.</p>
-        <p class="reserva"><a href="https://www.youtube.com/watch?v=7QB3o5uzw-o" target="_blank" rel="noopener">Assistir no YouTube</a> · <a href="https://www.youtube.com/results?search_query=desnormaliza%C3%A7%C3%A3o+banco+de+dados" target="_blank" rel="noopener">link de reserva: buscar no YouTube</a></p>
-      </div></aside>
+
+      <div class="video-card">
+        <div class="video-icon">▶</div>
+        <div>
+          <strong>Vídeo: Conceitos de Desnormalização de Dados</strong>
+          <p>Veja os impactos de velocidade e consistência no modelo desnormalizado.</p>
+          <div class="video-links">
+            <a href="https://www.youtube.com/watch?v=7QB3o5uzw-o" target="_blank" rel="noopener">Assistir no YouTube</a>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 05 · DECISÕES DO GRUPO -->
     <section class="secao">
-      <p class="etiqueta">05 · DECISÕES DO GRUPO</p>
-      <h2>O que escolhemos fazer, e o que deixamos de fora</h2>
-      <ul class="decisoes">
-        <li><strong>Decisão 1:</strong> usar um exemplo de perguntas de um quiz porque é um cenário fácil de entender e próximo da área de tecnologia.</li>
-        <li><strong>Decisão 2:</strong> cobrir os três temas em um só artigo, em ordem crescente de dificuldade, com vídeos ao longo do texto para quem quiser aprofundar.</li>
-        <li><strong>Decisão 3:</strong> usar PostgreSQL, com chaves primárias e estrangeiras, e testar todos os scripts em um banco limpo.</li>
-        <li><strong>O que não fizemos:</strong> não aprofundamos a 5FN com um exemplo completo, porque ela é rara na prática; explicamos a ideia e indicamos o vídeo.</li>
+      <div class="badge-tag"><span class="kanji-pill">05</span><span>DECISÕES ACADÊMICAS</span></div>
+      <h2>Escolhas de Projeto do Grupo</h2>
+      <ul class="lista-decisoes">
+        <li><strong>Domínio Didático:</strong> Escolhemos o tema "Quiz de Tecnologia" por facilitar a demonstração visual das tabelas.</li>
+        <li><strong>SGBD Escolhido:</strong> Utilizamos PostgreSQL 15 com restrições explícitas de chaves (`PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`).</li>
+        <li><strong>Escopo Prático:</strong> Focamos a implementação em código da 1FN à 3FN e demonstramos BCNF e Materialized Views em scripts avançados.</li>
       </ul>
     </section>
 
+    <!-- 06 · SQL NA PRÁTICA -->
     <section id="sql" class="secao">
-      <p class="etiqueta">06 · SQL NA PRÁTICA</p>
-      <h2>Separando os dados com PostgreSQL</h2>
-      <p>Os scripts completos estão em <code>sql/normalizacao.sql</code> (1FN a 3FN) e <code>sql/normalizacao-avancada.sql</code> (BCNF, 4FN e visão materializada). A ideia principal: categoria fica em uma tabela, fonte em outra e a pergunta aponta para elas por chaves estrangeiras.</p>
+      <div class="badge-tag"><span class="kanji-pill">06</span><span>SQL NA PRÁTICA</span></div>
+      <h2>Estrutura PostgreSQL Normalizada</h2>
+      <p>Trecho do script <code>sql/normalizacao.sql</code> com a criação das tabelas e relacionamentos:</p>
+
       <pre><code>CREATE TABLE categorias (
     id_categoria INTEGER GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
     nome VARCHAR(80) NOT NULL UNIQUE
@@ -187,42 +338,58 @@ CREATE TABLE perguntas (
     id_categoria INTEGER NOT NULL REFERENCES categorias(id_categoria),
     id_fonte INTEGER NOT NULL REFERENCES fontes(id_fonte)
 );</code></pre>
-      <p>O nome da categoria e os dados da fonte não se repetem dentro de cada pergunta. Os campos <code>id_categoria</code> e <code>id_fonte</code> fazem a ligação.</p>
-      <h3>Consulta com JOIN</h3>
+
+      <h3>Consulta de Dados Integrada (JOIN)</h3>
       <pre><code>SELECT p.id_pergunta, p.enunciado, c.nome AS categoria,
        f.nome AS fonte
 FROM perguntas p
 JOIN categorias c ON c.id_categoria = p.id_categoria
 JOIN fontes f ON f.id_fonte = p.id_fonte
 ORDER BY p.id_pergunta;</code></pre>
-      <p>O <code>JOIN</code> reúne as informações para exibir o resultado. Normalizar não significa perder informação: significa guardá-la de forma organizada e juntar os dados quando necessário.</p>
-      <div class="dica"><strong>Como testar:</strong> abra o pgAdmin, selecione um banco de testes PostgreSQL vazio, abra o Query Tool e execute o arquivo. Os scripts apagam apenas as tabelas de exemplo com esses nomes no banco selecionado.</div>
     </section>
 
-    <section class="secao">
-      <p class="etiqueta">07 · LIMITES E CUIDADOS</p>
-      <h2>Normalizar resolve tudo?</h2>
-      <p>Não. A normalização reduz redundância e anomalias, mas não substitui regras de negócio, validações, índices ou cuidados com segurança. Também é preciso pensar nas consultas que o sistema vai executar. Um banco bem modelado precisa ser consistente e atender ao uso real da aplicação.</p>
-      <p>Outro cuidado é não criar tabelas separadas sem necessidade: a divisão deve representar dependências reais entre os dados. E "sempre normalize até a 3FN" não é regra, é ponto de partida que depende do contexto.</p>
-    </section>
-
+    <!-- 07 · REFERÊNCIAS -->
     <section id="referencias" class="secao referencias">
-      <p class="etiqueta">08 · PARA CONTINUAR ESTUDANDO</p>
-      <h2>Referências consultadas</h2>
-      <ul>
-        <li><a href="https://www.postgresql.org/docs/current/ddl-constraints.html" target="_blank" rel="noopener">PostgreSQL: Constraints</a>. Documentação oficial sobre chaves primárias, chaves estrangeiras e restrições.</li>
-        <li><a href="https://www.postgresql.org/docs/current/rules-materializedviews.html" target="_blank" rel="noopener">PostgreSQL: Materialized Views</a>. Como funcionam as visões materializadas e o <code>REFRESH</code>.</li>
-        <li><a href="https://www.postgresql.org/docs/current/tutorial.html" target="_blank" rel="noopener">PostgreSQL: Tutorial</a>. Introdução oficial à criação e consulta de dados.</li>
-        <li><a href="https://en.wikipedia.org/wiki/Database_normalization" target="_blank" rel="noopener">Database normalization</a>. Visão geral das formas normais; leitura complementar.</li>
-        <li><a href="https://www.devmedia.com.br/desnormalizacao-de-banco-de-dados/31265" target="_blank" rel="noopener">DevMedia: Desnormalização de Banco de Dados</a>. Vídeo-aula sobre OLTP, OLAP e esquema estrela (fora do YouTube).</li>
+      <div class="badge-tag"><span class="kanji-pill">07</span><span>BIBLIOGRAFIA</span></div>
+      <h2>Referências Consultadas</h2>
+      <ul class="lista-ref">
+        <li><a href="https://www.postgresql.org/docs/current/ddl-constraints.html" target="_blank" rel="noopener">PostgreSQL Documentation — DDL Constraints</a></li>
+        <li><a href="https://www.postgresql.org/docs/current/rules-materializedviews.html" target="_blank" rel="noopener">PostgreSQL Documentation — Materialized Views</a></li>
+        <li>CODD, E. F. A relational model of data for large shared data banks. <em>Communications of the ACM</em>, 1970.</li>
+        <li>FAGIN, R. Multivalued dependencies and a new normal form for relational databases. <em>ACM Transactions on Database Systems</em>, 1977.</li>
       </ul>
-      <p><strong>Fontes primárias:</strong> CODD, E. F. A relational model of data for large shared data banks. <em>Communications of the ACM</em>, v. 13, n. 6, 1970. FAGIN, R. Multivalued dependencies and a new normal form for relational databases. <em>ACM Transactions on Database Systems</em>, v. 2, n. 3, 1977.</p>
-      <p><strong>Vídeos:</strong> todos os vídeos indicados são de terceiros, hospedados no YouTube e apenas linkados, sem cópia do conteúdo. Cada um tem um link de reserva caso saia do ar.</p>
-      <p><strong>Créditos de imagem:</strong> a figura de normalização foi criada para este artigo, sem uso de fotografia de terceiros.</p>
-      <p><strong>Autoria e opiniões:</strong> este material foi produzido para fins acadêmicos. As opiniões e escolhas são dos autores e não representam necessariamente a posição de qualquer empresa ou instituição. Não foram usados telefones, e-mails pessoais, endereços residenciais ou perfis privados.</p>
-      <p class="revisao">Última revisão: 16/10/2026 · Grupo: 9</p>
     </section>
   </main>
-  <footer><p>Tech Trivia · Artigo acadêmico sobre banco de dados · 2026</p><a href="#inicio">Voltar ao topo ↑</a></footer>
+
+  <!-- Rodapé Estilo GennisCode -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#inicio" class="marca">
+          <span class="logo-kanji">玄</span>
+          <span class="marca-texto">Tech Trivia</span>
+        </a>
+        <p>Tecnologia e fundamentos de banco de dados compartilhados com clareza.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Navegação</h4>
+        <a href="#inicio">Início</a>
+        <a href="#problema">O Problema</a>
+        <a href="#formas">Formas Normais</a>
+        <a href="#sql">SQL</a>
+      </div>
+
+      <div class="footer-meta">
+        <h4>Projeto Acadêmico</h4>
+        <p>2º Semestre · Ciência da Computação e Análise e Desenvolvimento de Sistemas/ TI</p>
+        <p>Desenvolvido pelo Grupo 9 (2026)</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tech Trivia · Conteúdo acadêmico fictício</span>
+      <span>一歩ずつ、前へ — um passo de cada vez.</span>
+    </div>
+  </footer>
 </body>
 </html>
