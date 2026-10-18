@@ -20,13 +20,20 @@
         <span class="logo-kanji">玄</span>
         <span class="marca-texto">Tech Trivia <span>· Banco de Dados</span></span>
       </a>
-      <div class="links">
-        <a href="#problema">O problema</a>
-        <a href="#formas">1FN a 3FN</a>
-        <a href="#avancadas">BCNF a 5FN</a>
-        <a href="#desnormalizacao">Desnormalização</a>
-        <a href="#sql">SQL</a>
-        <a href="#referencias">Referências</a>
+      
+      <div class="nav-direita">
+        <div class="links">
+          <a href="#problema">O problema</a>
+          <a href="#formas">1FN a 3FN</a>
+          <a href="#avancadas">BCNF a 5FN</a>
+          <a href="#desnormalizacao">Desnormalização</a>
+          <a href="#sql">SQL</a>
+          <a href="#referencias">Referências</a>
+        </div>
+        <!-- Botão de alternar tema -->
+        <button id="theme-toggle" class="theme-btn" aria-label="Alternar entre modo claro e escuro" title="Alternar tema">
+          <span class="theme-icon">🌙</span>
+        </button>
       </div>
     </nav>
 
@@ -83,7 +90,7 @@
     <!-- 01 · O PROBLEMA -->
     <section id="problema" class="secao">
       <div class="badge-tag"><span class="kanji-pill">01</span><span>O PROBLEMA</span></div>
-      <h2>Quando tudo fica em uma tabela só</h2>
+      <h2>Когда tudo fica em uma tabela só</h2>
       <p>Análise de um cenário com tabela única desnormalizada. Os dados da categoria e do publicador/fonte se repetem linha a linha:</p>
       
       <div class="tabela-wrap">
@@ -382,7 +389,7 @@ ORDER BY p.id_pergunta;</code></pre>
 
       <div class="footer-meta">
         <h4>Projeto Acadêmico</h4>
-        <p>2º Semestre · Ciência da Computação e Análise e Desenvolvimento de Sistemas/ TI</p>
+        <p>2º Semestre · Ciência da Computação / TI</p>
         <p>Desenvolvido pelo Grupo 9 (2026)</p>
       </div>
     </div>
@@ -391,5 +398,39 @@ ORDER BY p.id_pergunta;</code></pre>
       <span>一歩ずつ、前へ — um passo de cada vez.</span>
     </div>
   </footer>
+
+  <!-- Script para alternar o tema e animar -->
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+    const themeIcon = toggleBtn.querySelector('.theme-icon');
+
+    // Verifica se já existe preferência salva no navegador
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      htmlElement.classList.add('light-mode');
+      themeIcon.textContent = '☀️';
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      // Adiciona classe de animação de transição global
+      htmlElement.classList.add('theme-transitioning');
+      
+      if (htmlElement.classList.contains('light-mode')) {
+        htmlElement.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.textContent = '🌙';
+      } else {
+        htmlElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light');
+        themeIcon.textContent = '☀️';
+      }
+
+      // Remove a classe de transição após o efeito terminar para otimizar performance
+      setTimeout(() => {
+        htmlElement.classList.remove('theme-transitioning');
+      }, 500);
+    });
+  </script>
 </body>
 </html>
