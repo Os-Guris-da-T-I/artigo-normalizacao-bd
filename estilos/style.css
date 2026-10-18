@@ -1,12 +1,12 @@
 /* 
   Estilo Inspirado no ecossistema GennisCode
-  Dark Mode moderno, tipografia limpa, acentos de iluminação e componentes em malha
+  Suporte a Dark Mode e Light Mode com transições suaves
 */
 
 :root {
   color-scheme: dark;
   
-  /* Cores Base GennisCode */
+  /* Cores Base - Modo Escuro (Padrão) */
   --bg-deep: #090d10;
   --bg-surface: #0f171c;
   --bg-card: #152229;
@@ -14,20 +14,52 @@
   --border-color: #243844;
   --border-light: #2e4757;
   
-  /* Cores de Texto */
   --text-primary: #f0f6f9;
   --text-secondary: #9cb1bc;
   --text-muted: #627b87;
   
-  /* Acentos Visuais (Teal + Verde/Ciano + Destaques quentes) */
   --accent-teal: #00dc82;
   --accent-cyan: #10b981;
   --accent-blue: #38bdf8;
   --accent-amber: #f59e0b;
   
-  /* Tipografia Otimizada para Página de Artigo */
+  --code-bg: #05080a;
+  --code-text: #e2e8f0;
+
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Variáveis para o Modo Claro */
+html.light-mode {
+  color-scheme: light;
+  
+  --bg-deep: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-card: #f1f5f9;
+  --bg-card-hover: #e2e8f0;
+  --border-color: #cbd5e1;
+  --border-light: #94a3b8;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  
+  --accent-teal: #0d9488;
+  --accent-cyan: #059669;
+  --accent-blue: #0284c7;
+  --accent-amber: #d97706;
+  
+  --code-bg: #1e293b;
+  --code-text: #f8fafc;
+}
+
+/* Animação suave global ao trocar de tema */
+html.theme-transitioning,
+html.theme-transitioning *,
+html.theme-transitioning *:before,
+html.theme-transitioning *:after {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
 * {
@@ -56,7 +88,7 @@ body {
   top: -999px;
   left: 1rem;
   background: var(--accent-teal);
-  color: #000;
+  color: #fff;
   padding: 0.5rem 1rem;
   font-weight: 700;
   border-radius: 8px;
@@ -78,7 +110,7 @@ a:hover {
 
 /* Cabeçalho / Navbar */
 .topo {
-  background-color: rgba(9, 13, 16, 0.95);
+  background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
   width: 100%;
 }
@@ -92,13 +124,19 @@ a:hover {
   align-items: center;
 }
 
+.nav-direita {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .marca {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   font-weight: 800;
   font-size: 1.15rem;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .logo-kanji {
@@ -108,7 +146,7 @@ a:hover {
   width: 34px;
   height: 34px;
   background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-  color: #000;
+  color: #fff;
   font-weight: 900;
   border-radius: 8px;
   font-size: 1.1rem;
@@ -130,7 +168,31 @@ a:hover {
   font-weight: 500;
 }
 .links a:hover {
-  color: #fff;
+  color: var(--text-primary);
+}
+
+/* Botão de Troca de Tema */
+.theme-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.theme-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--bg-card-hover);
+  border-color: var(--accent-teal);
+}
+
+.theme-icon {
+  font-size: 1.1rem;
 }
 
 /* Hero Section */
@@ -156,7 +218,7 @@ a:hover {
 
 .kanji-pill {
   background: var(--accent-teal);
-  color: #000;
+  color: #fff;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -172,6 +234,7 @@ a:hover {
   line-height: 1.15;
   letter-spacing: -0.03em;
   margin-bottom: 1.25rem;
+  color: var(--text-primary);
 }
 
 .destaque-gradiente {
@@ -195,6 +258,7 @@ a:hover {
   padding: 1.25rem 1.5rem;
   border-radius: 14px;
   max-width: 850px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .autores-header {
@@ -228,7 +292,7 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* Conteúdo Principal com largura legível */
+/* Conteúdo Principal */
 main {
   max-width: 1000px;
   margin: 0 auto;
@@ -241,6 +305,7 @@ main {
   padding: 2.8rem;
   border-radius: 20px;
   margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
 }
 
 .secao h2 {
@@ -248,7 +313,7 @@ main {
   font-weight: 700;
   margin-bottom: 1.2rem;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .secao h3 {
@@ -287,7 +352,6 @@ p.lead {
   border: 1px solid var(--border-color);
   padding: 1.5rem;
   border-radius: 14px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 .card:hover {
@@ -307,7 +371,7 @@ p.lead {
 .card-badge {
   display: inline-block;
   background-color: var(--accent-amber);
-  color: #000;
+  color: #fff;
   font-weight: 800;
   padding: 0.2rem 0.6rem;
   border-radius: 6px;
@@ -391,7 +455,7 @@ tr:last-child td {
 }
 
 tbody tr:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: rgba(0, 0, 0, 0.01);
 }
 
 /* Formas Normais */
@@ -470,7 +534,7 @@ tbody tr:hover {
 
 /* Código SQL */
 pre {
-  background-color: #05080a;
+  background-color: var(--code-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 1.25rem;
@@ -478,13 +542,13 @@ pre {
   margin: 1.25rem 0;
   font-family: var(--font-mono);
   font-size: 0.88rem;
-  color: #e2e8f0;
+  color: var(--code-text);
   line-height: 1.6;
 }
 
 code {
   font-family: var(--font-mono);
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(128, 128, 128, 0.15);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   font-size: 0.88em;
@@ -579,6 +643,10 @@ footer {
     align-items: flex-start;
     gap: 1rem;
   }
+  .nav-direita {
+    width: 100%;
+    justify-content: space-between;
+  }
   .links {
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -590,45 +658,4 @@ footer {
     flex-direction: column;
     gap: 0.5rem;
   }
-}
-/* --- ANIMAÇÃO DE ENTRADA AO ABRIR A PÁGINA --- */
-@keyframes fadeInEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Aplica a animação no cabeçalho e na hero section ao carregar */
-.topo {
-  animation: fadeInEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.hero {
-  animation: fadeInEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
-  opacity: 0; /* Começa invisível para a animação revelar */
-}
-
-/* Aplica a animação de entrada suave nas seções principais do artigo */
-main .secao {
-  animation: fadeInEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-}
-
-/* Atraso escalonado para as seções entrarem de forma elegante uma a uma */
-main .secao:nth-child(1) { animation-delay: 0.25s; }
-main .secao:nth-child(2) { animation-delay: 0.35s; }
-main .secao:nth-child(3) { animation-delay: 0.45s; }
-main .secao:nth-child(4) { animation-delay: 0.55s; }
-main .secao:nth-child(5) { animation-delay: 0.65s; }
-main .secao:nth-child(6) { animation-delay: 0.75s; }
-main .secao:nth-child(7) { animation-delay: 0.85s; }
-
-/* Efeito de transição suave em links e botões */
-a, button, .card {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
