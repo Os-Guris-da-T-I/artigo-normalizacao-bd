@@ -1,12 +1,11 @@
 /* 
-  Estilo Inspirado no ecossistema GennisCode
-  Suporte a Dark Mode e Light Mode com transições suaves
+  Estilo Personalizado — Os Guri da T.I.
+  Suporte a Dark Mode, Light Mode, Animações, Ondas Suaves do Mar e Autores
 */
 
 :root {
   color-scheme: dark;
   
-  /* Cores Base - Modo Escuro (Padrão) */
   --bg-deep: #090d10;
   --bg-surface: #0f171c;
   --bg-card: #152229;
@@ -30,7 +29,6 @@
   --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* Variáveis para o Modo Claro */
 html.light-mode {
   color-scheme: light;
   
@@ -54,7 +52,6 @@ html.light-mode {
   --code-text: #f8fafc;
 }
 
-/* Animação suave global ao trocar de tema */
 html.theme-transitioning,
 html.theme-transitioning *,
 html.theme-transitioning *:before,
@@ -80,9 +77,71 @@ body {
   font-size: 1.05rem;
   line-height: 1.8;
   -webkit-font-smoothing: antialiased;
+  animation: fadeInEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+/* --- FUNDO DE ONDAS SUAVES DO MAR --- */
+.waves-background {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px; /* Altura fixa garantida */
+  z-index: 0; /* Coloca acima do fundo geral do body */
+  pointer-events: none; /* Não interfere nos cliques */
+  overflow: hidden;
 }
 
-/* Link Pular */
+/* Garante que o conteúdo principal e o cabeçalho fiquem por cima das ondas */
+.topo, main, footer {
+  position: relative;
+  z-index: 1;
+}
+
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cores e transparência das ondas no Modo Escuro */
+.wave-parallax > use:nth-child(1) {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  animation-delay: -2s;
+  fill: rgba(0, 220, 130, 0.12); /* Verde neon suave */
+}
+.wave-parallax > use:nth-child(2) {
+  animation: move-forever 18s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  animation-delay: -4s;
+  fill: rgba(56, 189, 248, 0.15); /* Azul celeste */
+}
+.wave-parallax > use:nth-child(3) {
+  animation: move-forever 12s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  animation-delay: -6s;
+  fill: rgba(0, 220, 130, 0.25);
+}
+.wave-parallax > use:nth-child(4) {
+  animation: move-forever 7s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  animation-delay: -5s;
+  fill: rgba(56, 189, 248, 0.35);
+}
+
+/* Cores das ondas no Modo Claro */
+html.light-mode .wave-parallax > use:nth-child(1) { fill: rgba(13, 148, 136, 0.15); }
+html.light-mode .wave-parallax > use:nth-child(2) { fill: rgba(2, 132, 199, 0.2); }
+html.light-mode .wave-parallax > use:nth-child(3) { fill: rgba(13, 148, 136, 0.25); }
+html.light-mode .wave-parallax > use:nth-child(4) { fill: rgba(2, 132, 199, 0.35); }
+
+@keyframes move-forever {
+  0% { transform: translate3d(-90px, 0, 0); }
+  100% { transform: translate3d(85px, 0, 0); }
+}
+
+@keyframes fadeInEntrance {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 .pular {
   position: absolute;
   top: -999px;
@@ -98,7 +157,6 @@ body {
   top: 1rem;
 }
 
-/* Links Genéricos */
 a {
   color: var(--accent-blue);
   text-decoration: none;
@@ -108,7 +166,6 @@ a:hover {
   color: var(--accent-teal);
 }
 
-/* Cabeçalho / Navbar */
 .topo {
   background-color: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
@@ -171,7 +228,6 @@ a:hover {
   color: var(--text-primary);
 }
 
-/* Botão de Troca de Tema */
 .theme-btn {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -195,7 +251,6 @@ a:hover {
   font-size: 1.1rem;
 }
 
-/* Hero Section */
 .hero {
   max-width: 1000px;
   margin: 0 auto;
@@ -251,48 +306,6 @@ a:hover {
   line-height: 1.6;
 }
 
-/* Card de Autores */
-.autores-card {
-  background-color: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  padding: 1.25rem 1.5rem;
-  border-radius: 14px;
-  max-width: 850px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.autores-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--accent-teal);
-  margin-bottom: 0.5rem;
-}
-
-.dot-status {
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent-teal);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-teal);
-}
-
-.autores-lista {
-  color: var(--text-primary);
-  font-size: 0.95rem;
-  font-weight: 500;
-  line-height: 1.6;
-}
-
-.revisao-data {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* Conteúdo Principal */
 main {
   max-width: 1000px;
   margin: 0 auto;
@@ -339,7 +352,6 @@ p.lead {
   line-height: 1.75;
 }
 
-/* Grid de Cards */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -391,7 +403,6 @@ p.lead {
   margin: 0;
 }
 
-/* Caixas Informativas */
 .aviso-box, .box-dica {
   background-color: rgba(245, 158, 11, 0.08);
   border-left: 4px solid var(--accent-amber);
@@ -413,7 +424,6 @@ p.lead {
   border-left-color: var(--accent-teal);
 }
 
-/* Tabelas */
 .tabela-wrap {
   overflow-x: auto;
   margin: 1.75rem 0;
@@ -454,11 +464,6 @@ tr:last-child td {
   border-bottom: none;
 }
 
-tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.01);
-}
-
-/* Formas Normais */
 .forma-box {
   display: flex;
   gap: 1.25rem;
@@ -478,7 +483,6 @@ tbody tr:hover {
   font-size: 0.9rem;
 }
 
-/* Imagens e Figuras */
 .figura-box {
   margin: 2rem 0;
   background-color: var(--bg-card);
@@ -500,7 +504,6 @@ tbody tr:hover {
   color: var(--text-muted);
 }
 
-/* Vídeos Cards */
 .video-card {
   display: flex;
   gap: 1.25rem;
@@ -532,7 +535,6 @@ tbody tr:hover {
   font-size: 0.85rem;
 }
 
-/* Código SQL */
 pre {
   background-color: var(--code-bg);
   border: 1px solid var(--border-color);
@@ -559,7 +561,6 @@ pre code {
   padding: 0;
 }
 
-/* Details */
 .details-box {
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -576,7 +577,6 @@ summary {
   color: var(--accent-teal);
 }
 
-/* Listas */
 .lista-decisoes, .lista-ref {
   padding-left: 1.25rem;
   margin: 1rem 0;
@@ -610,17 +610,20 @@ footer {
   margin-top: 0.75rem;
 }
 
-.footer-links h4, .footer-meta h4 {
+.footer-links h4 {
   font-size: 0.9rem;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
-.footer-links a, .footer-meta p {
+.footer-links a {
   display: block;
   color: var(--text-muted);
   font-size: 0.85rem;
   margin-bottom: 0.5rem;
+}
+.footer-links a:hover {
+  color: var(--text-primary);
 }
 
 .footer-bottom {
@@ -636,7 +639,97 @@ footer {
   color: var(--text-muted);
 }
 
-/* Responsividade */
+/* --- CARTÕES DE AUTORIA --- */
+.footer-autores {
+  grid-column: 1 / -1;
+  margin-bottom: 1.5rem;
+}
+
+.footer-autores h4 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+  font-weight: 700;
+}
+
+.autores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.autor-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  padding: 1rem 1.15rem;
+  border-radius: 14px;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.autor-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-teal);
+}
+
+.autor-foto {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-teal);
+  flex-shrink: 0;
+}
+
+.gabriel-foto {
+  object-position: center 18%;
+}
+
+.autor-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.autor-info strong {
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.autor-bio {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 0.5rem;
+}
+
+.autor-bio em {
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.autor-links {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.social-link {
+  font-size: 0.78rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+}
+
+.social-link:hover {
+  color: var(--accent-teal);
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .nav {
     flex-direction: column;
@@ -658,37 +751,4 @@ footer {
     flex-direction: column;
     gap: 0.5rem;
   }
-}
-/* --- ANIMAÇÃO DE ENTRADA AO ABRIR A PÁGINA --- */
-@keyframes fadeInEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* --- ANIMAÇÃO DE ENTRADA AO ABRIR A PÁGINA --- */
-@keyframes fadeInEntrance {
-  0% {
-    opacity: 0;
-    transform: translateY(15px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Aplica a animação no carregamento inicial do corpo da página */
-body {
-  animation: fadeInEntrance 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* Transição elegante para elementos interativos */
-a, button, .card, .secao {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
