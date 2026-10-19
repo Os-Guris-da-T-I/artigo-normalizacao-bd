@@ -3,22 +3,37 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Artigo sobre normalização de banco de dados, da 1FN à 5FN e a desnormalização, com exemplos SQL fictícios em PostgreSQL e vídeos para aprofundar.">
-  <title>Do dado repetido ao banco organizado | Tech Trivia</title>
+  <meta name="description" content="Artigo técnico sobre normalização de banco de dados, da 1FN à 5FN e desnormalização, desenvolvido por Os Guri da T.I.">
+  <title>Do dado repetido ao banco organizado | Os Guri da T.I.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="estilos/style.css">
 </head>
 <body>
+  <!-- Fundo de Ondas Suaves Animadas -->
+  <div class="waves-background" aria-hidden="true">
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+      <defs>
+        <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+      </defs>
+      <g class="wave-parallax">
+        <use href="#gentle-wave" x="48" y="0" />
+        <use href="#gentle-wave" x="48" y="3" />
+        <use href="#gentle-wave" x="48" y="5" />
+        <use href="#gentle-wave" x="48" y="7" />
+      </g>
+    </svg>
+  </div>
+
   <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 
-  <!-- Cabeçalho em estilo GennisCode -->
+  <!-- Cabeçalho -->
   <header class="topo">
     <nav class="nav" aria-label="Navegação principal">
       <a class="marca" href="#inicio">
         <span class="logo-kanji">玄</span>
-        <span class="marca-texto">Tech Trivia <span>· Banco de Dados</span></span>
+        <span class="marca-texto">Os Guri da T.I. <span>· Banco de Dados I</span></span>
       </a>
       
       <div class="nav-direita">
@@ -39,20 +54,11 @@
 
     <section class="hero" id="inicio">
       <div class="badge-tag">
-        <span class="kanji-pill">玄</span>
-        <span>ARTIGO TÉCNICO · BANCO DE DADOS I</span>
+        <span class="kanji-pill">⚡</span>
+        <span>PROJETO ACADÊMICO · GRUPO 9</span>
       </div>
       <h1>Do dado repetido ao<br><span class="destaque-gradiente">banco organizado.</span></h1>
-      <p class="subtitulo">Da 1FN à 5FN e o momento certo de desnormalizar: um guia prático com quiz, scripts PostgreSQL e vídeos complementares.</p>
-      
-      <div class="autores-card">
-        <div class="autores-header">
-          <span class="dot-status"></span>
-          <strong>Autores (Grupo 9 · 2º Semestre):</strong>
-        </div>
-        <p class="autores-lista">João Victor Guimarães Gomes, Matheus Augusto Antunes Pentogennis, Gustavo Gabriel Naves Ferreira, Lucas Siqueira Teles, Lucas da Graça Leandro e Gabriel Gonçalves Lima</p>
-        <span class="revisao-data">Última revisão acadêmica: 18/10/2026</span>
-      </div>
+      <p class="subtitulo">Da 1FN à 5FN e o momento certo de desnormalizar: um guia prático com quiz, scripts PostgreSQL e a seriedade que o código exige (mesmo com zueira nos bastidores).</p>
     </section>
   </header>
 
@@ -90,7 +96,7 @@
     <!-- 01 · O PROBLEMA -->
     <section id="problema" class="secao">
       <div class="badge-tag"><span class="kanji-pill">01</span><span>O PROBLEMA</span></div>
-      <h2>Quаndo tudo fica em uma tabela só</h2>
+      <h2>Quando tudo fica em uma tabela só</h2>
       <p>Análise de um cenário com tabela única desnormalizada. Os dados da categoria e do publicador/fonte se repetem linha a linha:</p>
       
       <div class="tabela-wrap">
@@ -181,7 +187,7 @@
         <div class="forma-tag">3FN</div>
         <div>
           <h3>Terceira Forma Normal: Eliminação de Dependências Transitivas</h3>
-          <p>A tabela deve estar na 2FN e nenhum atributo não-chave pode depender de outro atributo não-chave. Isolamos as categorias e as fontes em tabelas próprias (`categorias` e `fontes`), mantendo na pergunta apenas a chave estrangeira.</p>
+          <p>A tabela deve estar na 2FN e nenhum atributo não-chave pode depender de outro atributo não-chave. Isolamos as categorias e as fontes em tabelas próprias (<code>categorias</code> e <code>fontes</code>), mantendo na pergunta apenas a chave estrangeira.</p>
         </div>
       </div>
 
@@ -316,7 +322,7 @@ REFRESH MATERIALIZED VIEW resumo_categoria;</code></pre>
       <h2>Escolhas de Projeto do Grupo</h2>
       <ul class="lista-decisoes">
         <li><strong>Domínio Didático:</strong> Escolhemos o tema "Quiz de Tecnologia" por facilitar a demonstração visual das tabelas.</li>
-        <li><strong>SGBD Escolhido:</strong> Utilizamos PostgreSQL 15 com restrições explícitas de chaves (`PRIMARY KEY`, `FOREIGN KEY`, `UNIQUE`).</li>
+        <li><strong>SGBD Escolhido:</strong> Utilizamos PostgreSQL 15 com restrições explícitas de chaves (<code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>, <code>UNIQUE</code>).</li>
         <li><strong>Escopo Prático:</strong> Focamos a implementação em código da 1FN à 3FN e demonstramos BCNF e Materialized Views em scripts avançados.</li>
       </ul>
     </section>
@@ -368,15 +374,101 @@ ORDER BY p.id_pergunta;</code></pre>
     </section>
   </main>
 
-  <!-- Rodapé Estilo GennisCode -->
+  <!-- Rodapé com Autores e Identidade Os Guri da T.I. -->
   <footer>
     <div class="footer-container">
       <div class="footer-brand">
         <a href="#inicio" class="marca">
-          <span class="logo-kanji">玄</span>
-          <span class="marca-texto">Tech Trivia</span>
+          <span class="logo-kanji">⚡</span>
+          <span class="marca-texto">Os Guri da T.I.</span>
         </a>
-        <p>Tecnologia e fundamentos de banco de dados compartilhados com clareza.</p>
+        <p>Desenvolvido com muito café, zero anomalias de banco e código sério (mas com boas risadas nos bastidores).</p>
+      </div>
+
+      <div class="footer-autores">
+        <h4>Autores e Integrantes do Projeto (Grupo 9)</h4>
+        <div class="autores-grid">
+          
+          <!-- João Victor -->
+          <div class="autor-card">
+            <img src="autores/joao.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Joao+Victor&background=00dc82&color=090d10';" alt="Fotografia de perfil de João Victor Guimarães Gomes" class="autor-foto">
+            <div class="autor-info">
+              <strong>João Victor Guimarães Gomes</strong>
+              <p class="autor-bio">Análise e Desenvolvimento de Sistemas · 2º Semestre<br><em>Interesse: Python & Front-End</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/os-guris-da-t-i" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://www.linkedin.com/in/jo%C3%A3o-victor-guimar%C3%A3es-gomes-326b5542a" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gustavo Gabriel -->
+          <div class="autor-card">
+            <img src="autores/gustavo.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gustavo+Gabriel&background=38bdf8&color=090d10';" alt="Fotografia de perfil de Gustavo Gabriel Naves Ferreira" class="autor-foto">
+            <div class="autor-info">
+              <strong>Gustavo Gabriel Naves Ferreira</strong>
+              <p class="autor-bio">Análise e Desenvolvimento de Sistemas · 2º Semestre<br><em>Interesse: Desenvolvedor Web & Game Designer</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/os-guris-da-t-i" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://www.linkedin.com/in/gustavo-gabriel-naves-ferreira-7bb192445?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lucas Siqueira -->
+          <div class="autor-card">
+            <img src="autores/lucas_siqueira.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Lucas+Siqueira&background=00dc82&color=090d10';" alt="Fotografia de perfil de Lucas Siqueira Teles" class="autor-foto">
+            <div class="autor-info">
+              <strong>Lucas Siqueira Teles</strong>
+              <p class="autor-bio">Ciência da Computação · 1º Semestre<br><em>Interesse: Banco de Dados & SQL</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/Luucasy?tab=overview&from=2026-10-01&to=2026-10-17" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://www.linkedin.com/in/lucas-siqueira-6b2b0a42a/" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Matheus Augusto -->
+          <div class="autor-card">
+            <img src="autores/matheus.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Matheus+Pentogennis&background=00dc82&color=090d10';" alt="Fotografia de perfil de Matheus Augusto Antunes Pentogennis" class="autor-foto">
+            <div class="autor-info">
+              <strong>Matheus Augusto Antunes Pentogennis</strong>
+              <p class="autor-bio">Ciência da Computação · 2º Semestre<br><em>Interesse: Python & Banco de Dados</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/mwtheuskkj" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://www.linkedin.com/in/matheus-pentogennis-653214261?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lucas da Graça -->
+          <div class="autor-card">
+            <img src="autores/lucas_leandro.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Lucas+Leandro&background=00dc82&color=090d10';" alt="Fotografia de perfil de Lucas da Graça Leandro" class="autor-foto">
+            <div class="autor-info">
+              <strong>Lucas da Graça Leandro</strong>
+              <p class="autor-bio">Análise e Desenvolvimento de Sistemas · 2º Semestre<br><em>Interesse: Arquitetura de Dados & Cloud</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/os-guris-da-t-i" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gabriel Gonçalves (Com enquadramento ajustado) -->
+          <div class="autor-card">
+            <img src="autores/gabriel.jpeg" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Gabriel+Goncalves&background=38bdf8&color=090d10';" alt="Fotografia de perfil de Gabriel Gonçalves Lima" class="autor-foto gabriel-foto">
+            <div class="autor-info">
+              <strong>Gabriel Gonçalves Lima</strong>
+              <p class="autor-bio">Análise e Desenvolvimento de Sistemas · 2º Semestre<br><em>Interesse: Frontend & Acessibilidade Web</em></p>
+              <div class="autor-links">
+                <a href="https://github.com/os-guris-da-t-i" target="_blank" rel="noopener" class="social-link">GitHub ↗</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link">LinkedIn ↗</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <span class="revisao-data">Última revisão acadêmica: 19/10/2026</span>
       </div>
 
       <div class="footer-links">
@@ -386,26 +478,20 @@ ORDER BY p.id_pergunta;</code></pre>
         <a href="#formas">Formas Normais</a>
         <a href="#sql">SQL</a>
       </div>
-
-      <div class="footer-meta">
-        <h4>Projeto Acadêmico</h4>
-        <p>2º Semestre · Ciência da Computação e Análise e Desenvolvimento de Sistemas / TI</p>
-        <p>Desenvolvido pelo Grupo 9 (2026)</p>
-      </div>
     </div>
+    
     <div class="footer-bottom">
-      <span>© 2026 Tech Trivia · Conteúdo acadêmico fictício</span>
+      <span>© 2026 Os Guri da T.I.</span>
       <span>一歩ずつ、前へ — um passo de cada vez.</span>
     </div>
   </footer>
 
-  <!-- Script para alternar o tema e animar -->
+  <!-- Script para alternar o tema e animações -->
   <script>
     const toggleBtn = document.getElementById('theme-toggle');
     const htmlElement = document.documentElement;
     const themeIcon = toggleBtn.querySelector('.theme-icon');
 
-    // Verifica se já existe preferência salva no navegador
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
       htmlElement.classList.add('light-mode');
@@ -413,7 +499,6 @@ ORDER BY p.id_pergunta;</code></pre>
     }
 
     toggleBtn.addEventListener('click', () => {
-      // Adiciona classe de animação de transição global
       htmlElement.classList.add('theme-transitioning');
       
       if (htmlElement.classList.contains('light-mode')) {
@@ -426,7 +511,6 @@ ORDER BY p.id_pergunta;</code></pre>
         themeIcon.textContent = '☀️';
       }
 
-      // Remove a classe de transição após o efeito terminar para otimizar performance
       setTimeout(() => {
         htmlElement.classList.remove('theme-transitioning');
       }, 500);
