@@ -1,57 +1,57 @@
 # ⏱️ Roteiro de Apresentação — 5 Minutos (6 Integrantes)
 
-**Regra de ouro:** Tenham a página publicada aberta ao vivo no navegador antes de começar. Como são 6 pessoas, cada uma deve falar de forma direta, clara e com o cronômetro treinado.
+> **Regra de Ouro:** Abertura do site ao vivo no navegador em tela cheia (`F11`) antes de iniciar. A navegação deve acompanhar a fala de cada integrante.
 
 ---
 
-## 🕒 1. Abertura e Tema (0:00 – 0:50) — Integrante 1
-
-* **O que falar:**
-  > "Olá, professor e colegas! O nosso grupo apresenta o artigo 'Do dado repetido ao banco organizado'. O foco do trabalho foi mostrar como estruturar um banco de dados relacional, passando pelas formas normais e entendendo o impacto da redundância. Somos formados por [Nome do Integrante 1], [Nome do Integrante 2], [Nome do Integrante 3], [Nome do Integrante 4], [Nome do Integrante 5] e [Nome do Integrante 6]."
-
----
-
-## 🕒 2. O Problema e as Anomalias (0:50 – 1:40) — Integrante 2
-
-* **O que falar:**
-  > "Para ilustrar o problema, usamos um cenário prático de perguntas de um quiz. Em uma tabela única e desnormalizada, dados de categorias e fontes se repetem a cada linha. Isso gera três grandes problemas conhecidos: as anomalias de atualização, inserção e exclusão, onde uma alteração simples em um dado duplicado pode corromper a consistência do sistema."
+### 1. Abertura, Identidade & Contexto (0:00 – 0:50) — **João Victor**
+* **Ação na tela:** Manter no topo da página (*Hero Section*), destacando a marca **"Os Guri da T.I."** e o título principal.
+* **Falar:**
+  > *"Olá, professor e colegas! Nós somos 'Os Guri da T.I.', grupo formado por mim, pelo Gustavo, Lucas Siqueira, Matheus, Lucas Leandro e Gabriel. Hoje apresentamos nosso artigo técnico 'Do dado repetido ao banco organizado'. Nosso objetivo foi unir o rigor acadêmico exigido em Banco de Dados a uma navegação fluida em página única, demonstrando a evolução das Formas Normais até o código SQL prático."*
 
 ---
 
-## 🕒 3. As Decisões do Grupo (1:40 – 2:20) — Integrante 3
-
-* **O que falar:**
-  > "Tomamos três decisões principais no projeto:
-  > 1. Focar em um exemplo lúdico de quiz, facilitando a visualização técnica;
-  > 2. Desenvolver um artigo em página única, com design moderno inspirado no ecossistema GennisCode, incluindo suporte a alternância de tema (modo escuro e claro) para total acessibilidade visual;
-  > 3. Utilizar scripts em PostgreSQL focando em integridade referencial. Como o que escolhemos não fazer, optamos por não nos estender na 5FN por ser um cenário raro na prática cotidiana."
+### 2. O Problema e as Anomalias (0:50 – 1:40) — **Gustavo Gabriel**
+* **Ação na tela:** Rolar até a **Seção 01 (O Problema)**, passando o cursor pela **Tabela Desnormalizada** e pelos cartões de anomalias.
+* **Falar:**
+  > *"Para ilustrar o problema real, utilizamos o domínio de um Quiz de Tecnologia. Em uma tabela única e desnormalizada, dados de categorias e fontes se repetem em cada linha. Essa redundância gera três anomalias graves: a de Inserção, quando não podemos cadastrar uma fonte sem uma pergunta; a de Alteração, onde mudar um nome exige atualizar dezenas de linhas; e a de Exclusão, onde apagar uma pergunta apaga também a fonte."*
 
 ---
 
-## 🕒 4. A Solução e a Figura (2:20 – 3:10) — Integrante 4
-
-* *Ação: Mostrar brevemente o diagrama na tela*
-* **O que falar:**
-  > "Para resolver as anomalias, aplicamos a normalização dividindo as informações em tabelas independentes ligadas por chaves estrangeiras. Criamos um diagrama vetorial original e otimizado para acessibilidade que resume visualmente essa evolução: a 1FN garante valores atômicos, a 2FN remove dependências parciais e a 3FN elimina dependências transitivas."
-
----
-
-## 🕒 5. O Código SQL e a Consulta (3:10 – 4:10) — Integrante 5
-
-* *Ação: Mostrar rapidamente o trecho de código SQL ou a tabela na página*
-* **O que falar:**
-  > "Mostrando a página ao vivo, aqui no nosso código SQL na seção prática, a tabela de perguntas aponta para categorias e fontes usando chaves estrangeiras. Quando precisamos exibir os dados reunidos, utilizamos o comando JOIN. A normalização não esconde a informação; ela a organiza de forma segura e inteligente para o banco de dados."
+### 3. As Decisões de Projeto do Grupo (1:40 – 2:20) — **Lucas Siqueira**
+* **Ação na tela:** Rolar levemente até a **Seção 05 (Decisões Acadêmicas)** do artigo.
+* **Falar:**
+  > *"Com base nisso, tomamos três decisões técnicas principais: 
+  > 1. Adotar o modelo de Quiz por ser didático e prático; 
+  > 2. Desenvolver o projeto em arquitetura single-page responsiva com tema escuro/claro e links de apoio; 
+  > 3. Implementar a estrutura em PostgreSQL 15 com restrições rígidas. 
+  > Como decisão do que não fazer, optamos por tratar a 5FN apenas na teoria, por ser um cenário atípico no cotidiano do desenvolvimento."*
 
 ---
 
-## 🕒 6. O Deploy e Fechamento (4:10 – 5:00) — Integrante 6
+### 4. A Solução: 1FN à 3FN e o Diagrama (2:20 – 3:10) — **Matheus Augusto**
+* **Ação na tela:** Rolar até a **Seção 02 (Formas Normais)**, destacando a **Figura 1 (Diagrama do Fluxo de Normalização)**.
+* **Falar:**
+  > *"Para eliminar as anomalias, aplicamos o processo de normalização: a 1FN garante que cada célula contenha valores atômicos; a 2FN remove dependências parciais da chave primária; e a 3FN elimina dependências transitivas. Criamos este diagrama original que resume a decomposição do banco em tabelas independentes de `perguntas`, `categorias` e `fontes` conectadas por chaves estrangeiras."*
 
-* **O que falar:**
-  > "Por fim, realizamos o deploy da nossa página pública utilizando o GitHub Pages, garantindo compatibilidade, responsividade e navegação fluida. O projeto cumpre rigorosamente todas as normas de privacidade, autoria e dados acadêmicos fictícios. Agradecemos muito a atenção de todos e abrimos para perguntas!"
 ---
 
-## 🛑 Checklist Prático para a Equipe
-- [ ] Substituir os nomes dos 6 integrantes nos locais indicados.
-- [ ] Garantir que o repositório público do GitHub e o GitHub Pages estejam funcionando.
-- [ ] Ensaiar com o cronômetro para que cada um fale exatamente por cerca de 45 a 50 segundos.
-- [ ] Verificar se todos os 6 integrantes possuem commits próprios registrados no histórico do repositório.
+### 5. Código SQL Prático & Desnormalização (3:10 – 4:10) — **Lucas da Graça**
+* **Ação na tela:** Rolar para a **Seção 06 (SQL na Prática)** destacando o código `CREATE TABLE` e o `JOIN`, e passar rapidamente pela **Seção 04 (Materialized Views)**.
+* **Falar:**
+  > *"Traduzimos essa modelagem em scripts PostgreSQL reais. Como podem ver no código, isolamos as colunas e estabelecemos a integridade referencial com `FOREIGN KEY`. E quando precisamos consultar os dados consolidados, usamos o operador `JOIN`. Também abordamos a Desnormalização com Visões Materializadas, técnica usada para acelerar consultas analíticas sem comprometer a estrutura do banco."*
+
+---
+
+### 6. Autoria, Privacidade e Deploy (4:10 – 5:00) — **Gabriel Gonçalves**
+* **Ação na tela:** Rolar até o **Rodapé**, mostrando a grade com os **6 Cartões de Autores** (com fotos, bios e links).
+* **Falar:**
+  > *"Por fim, publicamos nossa aplicação no GitHub Pages com HTTPS ativo e total responsividade móvel. Cumprimos 100% dos requisitos de privacidade e autoria com fotos, mini-bios e links profissionais públicos do GitHub e LinkedIn de todos os seis membros. Agradecemos pela atenção e estamos abertos a dúvidas!"*
+
+---
+
+## 🛑 Checklist do Grupo para o Dia da Apresentação
+- [x] Fotos de todos os 6 integrantes com uploads concluídos na pasta `imagens/autores/`.
+- [ ] Testar o link final do GitHub Pages no celular e no computador da apresentação.
+- [ ] Treinar a passagem da fala com um cronômetro na mão (cada pessoa fala entre 45 e 50 segundos).
+- [ ] Deixar a aba do artigo aberta em tela cheia (`F11`) antes de ser chamado.
