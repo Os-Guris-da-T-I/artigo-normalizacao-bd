@@ -10,7 +10,7 @@ Artigo técnico acadêmico sobre normalização de banco de dados (da primeira �
 - Lucas da Graça Leandro
 - Gabriel Gonçalves Lima
 
-*(Revisado em: 18/10/2026)*
+*(Revisado em: 20/10/2026)*
 
 ## 🌐 Página Publicada e Repositório
 - **URL pública (Deploy):** [https://os-guris-da-t-i.github.io/artigo-normalizacao-bd/](https://os-guris-da-t-i.github.io/artigo-normalizacao-bd/)
