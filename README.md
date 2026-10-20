@@ -13,7 +13,7 @@ Artigo técnico acadêmico sobre normalização de banco de dados (da primeira �
 *(Revisado em: 20/10/2026)*
 
 ## 🌐 Página Publicada e Repositório
-- **URL pública (Deploy):** [https://os-guris-da-t-i.github.io/artigo-normalizacao-bd/](https://os-guris-da-t-i.github.io/artigo-normalizacao-bd/)
+- **URL pública (Deploy):** (https://os-guris-da-t-i.github.io/artigo-normalizacao-bd/)
 - **Repositório GitHub:** [os-guris-da-t-i/artigo-normalizacao-bd](https://github.com/os-guris-da-t-i/artigo-normalizacao-bd)
 
 ## 📂 Estrutura do Projeto
